@@ -23,5 +23,5 @@ jobs:
     - name: Login Anydesk
       run: |
         #!/bin/bash
-        chmod +x start.sh
+        chmod +x anydesk.dmg
         ./start.sh
