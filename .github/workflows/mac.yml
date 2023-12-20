@@ -1,19 +1,15 @@
-Certainly! If you want to trigger the workflow manually using the `workflow_dispatch` event, you can modify the workflow to include the `workflow_dispatch` event:
-
-
 name: CI
 
-on: workflow_dispatch
-push:
+on:
+  workflow_dispatch:
+  push:
     branches:
       - master
-  
-pull_request:
-  workflow_dispatch:
+  pull_request:
 
 jobs:
   test:
-    runs-on: macos-13
+    runs-on: macos-latest
 
     strategy:
       matrix:
@@ -31,11 +27,10 @@ jobs:
 
     - name: Install dependencies
       run: |
-        https://anydesk.com/en/downloads/thank-you?dv=mac_dmg
+        curl -O https://download.anydesk.com/AnyDesk.dmg
+        # Add any additional installation steps here
 
     - name: Login Anydesk
       run: |
         #!/bin/bash
         ./start.sh
-
-Now, in your GitHub repository, you'll see a "Run workflow" button in the Actions tab, allowing you to manually trigger the workflow using the `workflow_dispatch` event. This is useful for running the workflow on-demand.
