@@ -3,11 +3,12 @@ Certainly! If you want to trigger the workflow manually using the `workflow_disp
 
 name: CI
 
-on:
-  push:
+on: workflow_dispatch
+push:
     branches:
       - master
-  pull_request:
+  
+pull_request:
   workflow_dispatch:
 
 jobs:
