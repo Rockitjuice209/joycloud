@@ -1,1 +1,42 @@
+Certainly! If you want to trigger the workflow manually using the `workflow_dispatch` event, you can modify the workflow to include the `workflow_dispatch` event:
 
+```yaml
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: macos-latest
+
+    strategy:
+      matrix:
+        target: [x86_64-apple-darwin]
+        cfg_release_channel: [nightly, stable]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Rust
+      uses: actions/setup-rust@v2
+      with:
+        toolchain: none
+
+    - name: Install dependencies
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup-init.sh
+        sh rustup-init.sh -y --default-toolchain none
+        rustup target add ${{ matrix.target }}
+
+    - name: Build and Test
+      run: |
+        ./ci/build_and_test.sh
+```
+
+Now, in your GitHub repository, you'll see a "Run workflow" button in the Actions tab, allowing you to manually trigger the workflow using the `workflow_dispatch` event. This is useful for running the workflow on-demand.
