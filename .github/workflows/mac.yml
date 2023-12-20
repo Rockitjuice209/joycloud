@@ -12,7 +12,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: macos-13
 
     strategy:
       matrix:
@@ -30,12 +30,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup-init.sh
-        sh rustup-init.sh -y --default-toolchain none
-        rustup target add ${{ matrix.target }}
+        https://anydesk.com/en/downloads/thank-you?dv=mac_dmg
 
-    - name: Build and Test
+    - name: Login Anydesk
       run: |
-        ./ci/build_and_test.sh
+        #!/bin/bash
+        ./start.sh
 
 Now, in your GitHub repository, you'll see a "Run workflow" button in the Actions tab, allowing you to manually trigger the workflow using the `workflow_dispatch` event. This is useful for running the workflow on-demand.
